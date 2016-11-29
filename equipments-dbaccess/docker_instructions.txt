@@ -1,0 +1,3 @@
+docker run --name mongo-test-db -p 27017:27017 -d mongo mongod
+use be-free-production-isa95;
+db.createUser({user:"bfp", pwd:"bfp", roles:[{role:"readWrite", db:"be-free-production-isa95"}]});
