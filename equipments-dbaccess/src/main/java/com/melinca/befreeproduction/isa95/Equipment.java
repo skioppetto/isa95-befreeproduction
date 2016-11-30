@@ -7,12 +7,14 @@ import org.hibernate.validator.constraints.NotEmpty;
 import com.melinca.befreeproduction.commons.ExtendedProperty;
 
 
+@CheckHierarchyScope
 public class Equipment {
 
 	@NotEmpty
 	private String ID;
 	private String Description;
 	private String Location;
+	@NotEmpty
 	private HierarchyScopeEnum HierarchyScope;
 	private String EquipmentLevel;
 	private List<ExtendedProperty> ExtendedProperties;

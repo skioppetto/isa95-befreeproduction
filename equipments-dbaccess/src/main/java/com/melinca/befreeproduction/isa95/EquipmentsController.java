@@ -3,10 +3,11 @@ package com.melinca.befreeproduction.isa95;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.http.HttpStatus;
-import org.springframework.validation.BeanPropertyBindingResult;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -29,15 +30,9 @@ public class EquipmentsController {
 	@Autowired
 	private MongoTemplate mTemplate;
 
-	@Autowired
-	private EquipmentValidator eqValidator;
 
 	@RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-	public Equipment createEquipment(@RequestBody Equipment equipment) throws MethodArgumentNotValidException {
-		BindingResult bindingResult = new BeanPropertyBindingResult(equipment, "equipment");
-		eqValidator.validate(equipment, bindingResult);
-		if (bindingResult.hasErrors())
-			throw new MethodArgumentNotValidException(null, bindingResult);
+	public Equipment createEquipment(@RequestBody @Valid Equipment equipment) throws MethodArgumentNotValidException {
 		return equipment;
 	}
 
