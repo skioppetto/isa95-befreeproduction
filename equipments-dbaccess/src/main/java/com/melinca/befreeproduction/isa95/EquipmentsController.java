@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.melinca.befreeproduction.commons.ControllerResponse;
+
 @RestController
 @RequestMapping("/equipments")
 public class EquipmentsController {
@@ -27,8 +29,9 @@ public class EquipmentsController {
 	}
 
 	@RequestMapping(method = RequestMethod.PUT)
-	public void saveEquipment(Equipment equipment) {
+	public ControllerResponse saveEquipment(Equipment equipment) {
 		mTemplate.save(equipment);
+		return new ControllerResponse();
 	}
 
 	@RequestMapping(method = RequestMethod.GET, produces = "application/json")

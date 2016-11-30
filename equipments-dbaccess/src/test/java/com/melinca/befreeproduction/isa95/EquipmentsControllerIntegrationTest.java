@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import com.melinca.befreeproduction.commons.ControllerResponse;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class EquipmentsControllerIntegrationTest {
@@ -56,7 +58,10 @@ public class EquipmentsControllerIntegrationTest {
 	public void saveEquipment() throws EquipmentNotFoundException {
 		Equipment equipment = service.getEquipment("0002");
 		equipment.setLocation("New Location");
-		service.saveEquipment(equipment);
+		ControllerResponse response = service.saveEquipment(equipment);
+		Assert.assertNotNull(response);
+		Assert.assertEquals(ControllerResponse.RESULT_SUCCESS, response.getResponseResult());
+		Assert.assertNull(response.getErrors());
 		Equipment updated = service.getEquipment("0002");
 		Assert.assertEquals("New Location", updated.getLocation());
 	}
