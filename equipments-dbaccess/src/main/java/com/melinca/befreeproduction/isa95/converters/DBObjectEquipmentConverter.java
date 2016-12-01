@@ -16,7 +16,7 @@ public class DBObjectEquipmentConverter implements Converter<DBObject, Equipment
 
 	private DBObjectExtendedPropertiesConverter extendedPropertiesConverter;
 	private static final Set<String> fields = new HashSet<String>(
-			Arrays.asList("_id", "description", "equipmentClassIDs", "equipmentLevel", "hierarchyScope", "location"));
+			Arrays.asList("_id", "description", "equipmentClassIDs", "equipmentLevel", "hierarchyScope", "location", "parent"));
 
 	public DBObjectEquipmentConverter(DBObjectExtendedPropertiesConverter extendedPropertiesConverter) {
 		super();
@@ -32,6 +32,7 @@ public class DBObjectEquipmentConverter implements Converter<DBObject, Equipment
 		eq.setEquipmentLevel((String) dbObject.get("equipmentLevel"));
 		eq.setHierarchyScope(HierarchyScopeEnum.valueOf((String) dbObject.get("hierarchyScope")));
 		eq.setLocation((String) dbObject.get("location"));
+		eq.setParent((String) dbObject.get("parent"));
 		fields.forEach(item -> dbObject.removeField(item));
 		eq.setExtendedProperties(extendedPropertiesConverter.convert(dbObject));
 		return eq;

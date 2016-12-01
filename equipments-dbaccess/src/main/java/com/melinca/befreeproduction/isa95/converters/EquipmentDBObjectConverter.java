@@ -25,6 +25,7 @@ public class EquipmentDBObjectConverter implements Converter<Equipment, DBObject
 		obj.put("equipmentLevel", equip.getEquipmentLevel());
 		obj.put("hierarchyScope", equip.getHierarchyScope().toString());
 		obj.put("location", equip.getLocation());
+		obj.put("parent", equip.getParent());
 		obj.put("equipmentClassIDs", equip.getEquipmentClassIDs());
 		if (null != equip.getExtendedProperties() && !equip.getExtendedProperties().isEmpty()) {
 			DBObject extendedProperties = extendedPropertiesDBObjectConverter.convert(equip.getExtendedProperties());

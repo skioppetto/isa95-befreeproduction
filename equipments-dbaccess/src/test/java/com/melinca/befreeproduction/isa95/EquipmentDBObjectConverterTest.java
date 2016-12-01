@@ -26,6 +26,7 @@ public class EquipmentDBObjectConverterTest {
 		equip.setEquipmentLevel("myLevel");
 		equip.setHierarchyScope(HierarchyScopeEnum.Area);
 		equip.setLocation("myLocation");
+		equip.setParent("myParent");
 		List<ExtendedProperty> properties = new ArrayList<>();
 		properties.add(new ExtendedProperty("prop1", "class1", "myValue", "description1"));
 		properties.add(new ExtendedProperty("prop2", "class1", 56.67, "description2"));
@@ -42,6 +43,7 @@ public class EquipmentDBObjectConverterTest {
 		Assert.assertEquals(HierarchyScopeEnum.Area.toString(), dbObj.get("hierarchyScope"));
 		Assert.assertEquals("myValue", dbObj.get("class1_prop1"));
 		Assert.assertEquals("description1", dbObj.get("class1_prop1_description"));
+		Assert.assertEquals("myParent", dbObj.get("parent"));
 		Assert.assertEquals(56.67, dbObj.get("class1_prop2"));
 		Assert.assertEquals("description2", dbObj.get("class1_prop2_description"));
 	}
