@@ -2,10 +2,18 @@ package com.melinca.befreeproduction.isa95;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.context.SpringBootTest.WebEnvironment;
+import org.springframework.test.context.junit4.SpringRunner;
 
+@RunWith(SpringRunner.class)
+@SpringBootTest(webEnvironment = WebEnvironment.NONE)
 public class CheckHierarchyScopeValidatorTest {
 
-	CheckHierarchyScopeValidator validator = new CheckHierarchyScopeValidator();
+	@Autowired
+	CheckHierarchyScopeValidator validator;
 
 	@Test
 	public void testEnterpriseScope() {
@@ -16,11 +24,19 @@ public class CheckHierarchyScopeValidatorTest {
 	}
 
 	@Test
-	public void testOthterScopes() {
+	public void testCorrectParentScope() {
+		Equipment eq = EquipmentUtil.buildEquipment();
+		eq.setHierarchyScope(HierarchyScopeEnum.ProcessCell);
+		eq.setParent("A001");
+		Assert.assertTrue(validator.isValid(eq, null));
+	}
+
+	@Test
+	public void testWrongParentScope() {
 		Equipment eq = EquipmentUtil.buildEquipment();
 		eq.setHierarchyScope(HierarchyScopeEnum.WorkCell);
-		eq.setParent("ParentEq");
-		Assert.assertTrue(validator.isValid(eq, null));
+		eq.setParent("E001");
+		Assert.assertFalse(validator.isValid(eq, null));
 	}
 
 	@Test
