@@ -15,7 +15,7 @@ public class DBObjectExtendedPropertyConverterTests {
 	final DBObjectExtendedPropertiesConverter converter = new DBObjectExtendedPropertiesConverter();
 
 	@Test
-	public void convert() {
+	public void convertClassProperties() {
 		DBObject dbObj = new BasicDBObject();
 		dbObj.put("class1_prop1", "val1");
 		dbObj.put("class1_prop1_description", "description1");
@@ -35,7 +35,19 @@ public class DBObjectExtendedPropertyConverterTests {
 				Assert.assertEquals(14.45, e.getValue());
 			}
 		}
+	}
 
+	@Test
+	public void convertNotClassedProperty() {
+		DBObject dbObj = new BasicDBObject();
+		dbObj.put("prop1", "val1");
+		dbObj.put("prop1_description", "description1");
+		List<ExtendedProperty> list = converter.convert(dbObj);
+		Assert.assertNotNull(list);
+		Assert.assertEquals(1, list.size());
+		Assert.assertEquals("val1", list.get(0).getValue());
+		Assert.assertEquals("description1", list.get(0).getDescription());
+		Assert.assertNull(list.get(0).getParentClass());
 	}
 
 }

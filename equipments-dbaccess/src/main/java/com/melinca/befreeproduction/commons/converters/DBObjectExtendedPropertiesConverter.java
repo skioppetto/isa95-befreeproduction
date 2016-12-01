@@ -22,8 +22,8 @@ public class DBObjectExtendedPropertiesConverter implements Converter<DBObject, 
 			if (property.endsWith("_description"))
 				continue;
 			String[] splitted = property.split("_");
-			String className = splitted[0];
-			String propertyName = splitted[1];
+			String className = (splitted.length == 2) ? splitted[0] : null;
+			String propertyName = splitted[splitted.length - 1];
 			ExtendedProperty extProperty = new ExtendedProperty(propertyName, className, extendedObjects.get(property),
 					(String) extendedObjects.get(property + "_description"));
 			extProperties.add(extProperty);
